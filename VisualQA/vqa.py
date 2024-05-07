@@ -1,6 +1,6 @@
 __author__ = 'QingLi'
 __version__ = '1.0'
-
+## modified by sooh-J
 # Interface for accessing the VQA dataset.
 
 # This code is based on the code written by Qing Li for VizWiz Python API available at the following link: 
@@ -23,6 +23,15 @@ import random
 import skimage.io as io
 import matplotlib.pyplot as plt
 import os
+from collections import Counter
+
+def export_max_value(ans):
+    ans_cnt = Counter(ans)
+    
+    max_cnt = max(ans_cnt.values())
+    max_ans = max([k for k,v in ans_cnt.items() if v == max_cnt], key=len)
+    
+    return max_ans
 
 class VQA:
     def __init__(self, annotation_file=None):
@@ -65,7 +74,7 @@ class VQA:
        
         self.anns = anns
         return anns
-    
+
     def getBestAnns(self, imgs=[], ansTypes=[]):
         """
         code by SOOH-J 
@@ -77,7 +86,7 @@ class VQA:
         try:
             anns = self.anns
         except:
-            anns = self.getAnns(imgs,ansTypes)
+            anns = self.getAnns(imgs, ansTypes)
             
         # include only answers with confidence
         confidence_anns = []
@@ -87,12 +96,12 @@ class VQA:
                 ann_copy = ann.copy() 
                 ann_copy['answers'] = confidence_ann
                 try:
-                    lwc = [con_ans['answer'] for con_ans in confidence_ann]
-                    ann_copy['answer'] = max(lwc, key=lwc.count)
+                    confidence_answers = [con_ans['answer'] for con_ans in confidence_ann if con_ans['answer'] not in ['unanswerable','unsuitable image','unsuitable']]
+                    ann_copy['answer'] = export_max_value(confidence_answers)
                 except:
                     continue
                 confidence_anns.append(ann_copy)
-                
+            continue
         return confidence_anns
 
     def showQA(self, anns):
