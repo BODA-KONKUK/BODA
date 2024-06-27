@@ -1,5 +1,0 @@
-# ignore image files in data folder
-data/VQA_test/images/*.jpg
-data/VQA_train/images/*.jpg
-
-.DS_Store
