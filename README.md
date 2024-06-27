@@ -1,5 +1,6 @@
 # BODA
 저희는 시각장애인의 일상 생활을 보다 편리하게 만들어줄 수 있는 시각적 질의응답 서비스를 개발하고자 합니다.
+
 ## 1. FRONT-END
 https://github.com/BODA-KONKUK/boda-frontend.git
 ## 2. BACK-END
@@ -18,3 +19,4 @@ https://github.com/BODA-KONKUK/boda-ai.git
 
 
 # 프로젝트 발표 자료
+https://github.com/BODA-KONKUK/BODA/blob/main/BODA.pdf
